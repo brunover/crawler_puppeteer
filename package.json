@@ -1,0 +1,28 @@
+{
+  "name": "crawler_puppeteer",
+  "version": "1.0.0",
+  "description": "Crawler for web scraping developed with NodeJS + Puppeteer + Headless Chrome",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunover/crawler_puppeteer.git"
+  },
+  "keywords": [
+    "nodejs",
+    "puppeteer",
+    "headless_chrome"
+  ],
+  "author": "Bruno Leandro de Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunover/crawler_puppeteer/issues"
+  },
+  "homepage": "https://github.com/brunover/crawler_puppeteer#readme",
+  "dependencies": {
+    "puppeteer": "^1.2.0",
+    "standard": "^11.0.1"
+  }
+}
