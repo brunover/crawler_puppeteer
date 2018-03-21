@@ -22,7 +22,11 @@
   },
   "homepage": "https://github.com/brunover/crawler_puppeteer#readme",
   "dependencies": {
-    "puppeteer": "^1.2.0",
+    "jsonfile": "^4.0.0",
+    "moment": "^2.21.0",
+    "puppeteer": "^1.2.0"
+  },
+  "devDependencies": {
     "standard": "^11.0.1"
   }
 }
