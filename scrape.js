@@ -111,7 +111,7 @@ const scrape = async () => {
       })
 
       let scrapedArticleText = await page.evaluate(() => {
-        return document.querySelector('.article--content').innerText
+        return document.querySelector('.article--content').innerHTML
       })
 
       // Add the scraped text into the object
