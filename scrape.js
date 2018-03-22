@@ -57,27 +57,33 @@ const scrape = async () => {
       let articlesArray = []
 
       for (let article of pageArticles) {
-        let publishDate = article.querySelector('.list-item--info').innerText.trim()
-        let title = article.querySelector('.list-item--title').innerText.trim()
-        let description = article.querySelector('.list-item--description').innerText.trim()
-        let url = article.querySelector('[id*="btn_post"]').href
-        let text = ''
+        try {
+          let publishDate = article.querySelector('.list-item--info').innerText.trim()
+          let title = article.querySelector('.list-item--title').innerText.trim()
+          let description = article.querySelector('.list-item--description').innerText.trim()
+          let url = article.querySelector('[id*="btn_post"]').href
+          let text = ''
 
-        let image = ''
+          let image = ''
 
-        // Sometimes the articles does not have cover images...
-        if (article.querySelector('.list-item--thumb > img') != null) {
-          image = article.querySelector('.list-item--thumb > img').getAttribute('src')
+          // Sometimes the articles does not have cover images...
+          if (article.querySelector('.list-item--thumb > img') != null) {
+            image = article.querySelector('.list-item--thumb > img').getAttribute('src')
+          }
+
+          articlesArray.push({
+            image,
+            title,
+            publishDate,
+            description,
+            url,
+            text
+          })
+        } catch (e) {
+          // If an error occur and the article could not be extracted, print error and go to the next
+          console.error(e)
+          continue
         }
-
-        articlesArray.push({
-          image,
-          title,
-          publishDate,
-          description,
-          url,
-          text
-        })
       }
 
       return {
@@ -111,7 +117,15 @@ const scrape = async () => {
       })
 
       let scrapedArticleText = await page.evaluate(() => {
-        return document.querySelector('.article--content').innerHTML
+        let html = ''
+
+        try {
+          html = document.querySelector('.article--content').innerHTML
+        } catch (e) {
+          console.error(e)
+        }
+
+        return html
       })
 
       // Add the scraped text into the object
