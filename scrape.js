@@ -1,12 +1,13 @@
 /**
- * @name ScrapeEmpiricusNews *
- * @desc Scrapes 'empiricus.com.br' for articles and creates JSON with the ones from the last 30 days *
+ * @name ScrapeEmpiricusNews
+ * @desc Scrapes 'https://www.empiricus.com.br/conteudo/newsletters/' for articles and creates JSON with the ones from the last 30 days
  * @author Bruno Leandro de Lima
  */
 const puppeteer = require('puppeteer')
 const jsonfile = require('jsonfile')
 const moment = require('moment')
 
+// Months in 'pt-br' to be converted to a JS Date Object
 const months = 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_')
 
 // Transform the date string in the article to a JS Date Object
@@ -18,7 +19,7 @@ const convertEmpiricusDate = (dateStr) => {
 }
 
 const scrape = async () => {
-  // If it reaches a article older than 30 days, stops scraping
+  // If it reaches an article equal or older than 30 days, stops scraping
   let keepScraping = true
 
   // Page to scrape
@@ -27,12 +28,13 @@ const scrape = async () => {
   // Get the last 31 days to know when to stop
   let back30Days = moment().subtract(31, 'days')
 
-  // Array with the newsletters that will be used
+  // Array with the newsletters that will be saved
   let newsletters = []
 
   const browser = await puppeteer.launch({
     headless: true // Turn to 'false' to see the magic happening!
   })
+
   const page = await browser.newPage()
 
   console.log('Starting! Will keep scraping until it finds an article equal or older than (' + moment(back30Days).format('DD/MM/YYYY') + ')')
@@ -123,6 +125,7 @@ const scrape = async () => {
     }
   }
 
+  // Close browser
   await browser.close()
 
   // Return the news to be inserted in a JSON file
@@ -131,7 +134,7 @@ const scrape = async () => {
 
 scrape().then(newsletters => {
   // Creates a JSON file with the scraped data
-  jsonfile.writeFile('newsletters.json', JSON.stringify(newsletters), function (err) {
+  jsonfile.writeFile('newsletters.json', newsletters, function (err) {
     if (err) {
       console.error(err)
     } else {
