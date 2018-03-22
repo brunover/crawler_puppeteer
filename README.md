@@ -1,5 +1,5 @@
 # crawler_puppeteer
-Crawler for web scraping developed with NodeJS + Puppeteer + Headless Chrome 
+Crawler for web scraping developed with NodeJS + Puppeteer
 
 ### How to run? ###
 
