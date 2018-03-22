@@ -135,7 +135,7 @@ scrape().then(newsletters => {
     if (err) {
       console.error(err)
     } else {
-      console.log('Scraped artciles: ' + newsletters.length)
+      console.log('Finished! Qty of scraped articles: ' + newsletters.length)
     }
   })
 })
