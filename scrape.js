@@ -32,7 +32,7 @@ const scrape = async () => {
   let newsletters = []
 
   const browser = await puppeteer.launch({
-    headless: true // Turn to 'false' to see the magic happening!
+    headless: false // Turn to 'false' to see the magic happening!
   })
 
   const page = await browser.newPage()
@@ -68,7 +68,7 @@ const scrape = async () => {
 
           // Sometimes the articles does not have cover images...
           if (article.querySelector('.list-item--thumb > img') != null) {
-            image = article.querySelector('.list-item--thumb > img').getAttribute('src')
+            image = article.querySelector('.list-item--thumb > img').src
           }
 
           articlesArray.push({
@@ -133,9 +133,6 @@ const scrape = async () => {
 
       // Add the article to the group of newsletters that will be returned
       newsletters.push(article)
-
-      // Go back to the newsletters page
-      await page.goBack()
     }
   }
 
