@@ -110,6 +110,15 @@ const scrape = async () => {
         waitUntil: 'domcontentloaded'
       })
 
+      // Wait a maximum of 10 seconds for the image cover to load
+      try {
+        await page.waitForSelector('img.b-loaded', {
+          timeout: 10000
+        })
+      } catch (e) {
+        console.error('Found article without image: ' + article.title)
+      }
+
       let scrapedArticleText = await page.evaluate(() => {
         // Scraping the article text
         let html = document.querySelector('.article--content').innerHTML
