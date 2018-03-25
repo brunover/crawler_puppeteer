@@ -63,13 +63,7 @@ const scrape = async () => {
           let description = article.querySelector('.list-item--description').innerText.trim()
           let url = article.querySelector('[id*="btn_post"]').href
           let text = ''
-
           let image = ''
-
-          // Sometimes the articles does not have cover images...
-          if (article.querySelector('.list-item--thumb > img') != null) {
-            image = article.querySelector('.list-item--thumb > img').src
-          }
 
           articlesArray.push({
             image,
@@ -117,19 +111,26 @@ const scrape = async () => {
       })
 
       let scrapedArticleText = await page.evaluate(() => {
-        let html = ''
+        // Scraping the article text
+        let html = document.querySelector('.article--content').innerHTML
 
-        try {
-          html = document.querySelector('.article--content').innerHTML
-        } catch (e) {
-          console.error(e)
+        // Scraping the article image, but sometimes the articles does not have cover images...
+        let image = ''
+        if (document.querySelector('img.b-loaded') != null) {
+          image = document.querySelector('img.b-loaded').src
         }
 
-        return html
+        return {
+          html,
+          image
+        }
       })
 
       // Add the scraped text into the object
-      article.text = scrapedArticleText
+      article.text = scrapedArticleText.html
+
+      // Add the cover image to the article
+      article.image = scrapedArticleText.image
 
       // Add the article to the group of newsletters that will be returned
       newsletters.push(article)
