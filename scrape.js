@@ -8,7 +8,7 @@ const jsonfile = require('jsonfile')
 const moment = require('moment')
 
 // Months in 'pt-br' to be converted to a JS Date Object
-const months = 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_')
+const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
 
 // Transform the date string in the article to a JS Date Object
 const convertEmpiricusDate = (dateStr) => {
