@@ -23,7 +23,7 @@
   "homepage": "https://github.com/brunover/crawler_puppeteer#readme",
   "dependencies": {
     "jsonfile": "^4.0.0",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "moment": "^2.21.0",
     "puppeteer": "^1.13.0"
   },
